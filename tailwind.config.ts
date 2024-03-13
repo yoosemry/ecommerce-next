@@ -7,7 +7,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
     container: {
@@ -19,6 +19,22 @@ const config = {
     },
     extend: {
       colors: {
+        main: {
+
+          '50': '#ecf6ff',
+          '100': '#ddedff',
+          '200': '#c1ddff',
+          '300': '#9bc7ff',
+          '400': '#74a3ff',
+          '500': '#5381ff',
+          '600': '#3459f7',
+          '700': '#2847da',
+          '800': '#233db0',
+          '900': '#253b8a',
+          '950': '#0e1534',
+
+        },
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

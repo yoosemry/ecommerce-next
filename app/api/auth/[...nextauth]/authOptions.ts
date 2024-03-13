@@ -12,9 +12,33 @@ export const authOption: NextAuthOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!
         }),
     ],
-   
+    callbacks: {
+        jwt: async ({ token }) => {
+
+        
+            const userInfo = await prisma.user.findFirst({ where: { email: token.email } })
+
+            if (userInfo) {
+                userInfo.emailVerified = undefined!;
+                userInfo.hashedPassword = undefined!;
+                userInfo.id = undefined!
+
+            }
+            token.user = userInfo;
+             return token
+
+        },
+        session: async ({ session, token }) => {
+           
+            session.user = token.user!;
+            return session;
+
+        }
+    },
+
     session: {
         strategy: 'jwt'
     },
+
     adapter: PrismaAdapter(prisma)
 }
