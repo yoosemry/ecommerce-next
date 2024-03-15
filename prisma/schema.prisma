@@ -47,7 +47,6 @@ model User {
   role           String?   @default("user")
   accounts       Account[]
   sessions       Session[]
- 
 }
 
 model VerificationToken {
@@ -58,3 +57,28 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Categoty {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  created DateTime  @default(now())
+  updated DateTime  @updatedAt
+  Product Product[]
+}
+
+model Product {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  categoryId    String   @db.ObjectId
+  categoty      Categoty @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  created       DateTime @default(now())
+  updated       DateTime @updatedAt
+  thumbnail     String
+  gallery       String[]
+  price         Float
+  description   String
+  stockQuantity Int
+  status        String   @default("visible")
+}
+
+// alt shift f

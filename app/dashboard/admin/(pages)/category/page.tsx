@@ -1,8 +1,14 @@
 import React from 'react'
+import List from './_components/List'
 
 const CategoriesPage = () => {
   return (
-    <div>CategoriesPage</div>
+    <div>
+
+ 
+
+      <List/>
+    </div>
   )
 }
 

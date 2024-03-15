@@ -18,7 +18,7 @@ const AdminLayout = ({children} : {children : React.ReactNode}) => {
 
         </div>
 
-<main className='md:ml-5 md:pl-56 mt-[75px] h-full'>
+<main className='md:ml-5 md:pl-64 mt-[75px] h-full mx-auto py-10 mr-8'>
         {children}
   
 </main>
