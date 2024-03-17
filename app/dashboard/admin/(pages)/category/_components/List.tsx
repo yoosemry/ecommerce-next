@@ -4,7 +4,7 @@ import { API } from '@/lib/config'
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import axios from "axios"
-import { Table } from '@/components/ui/table'
+
 import { DataTable } from '@/components/ui/data-table'
 import { columns } from '../columns'
 
@@ -24,7 +24,7 @@ const List = () => {
   return (
     <div className=' w-full text-start'>
 
-<DataTable columns={columns} data={data} title={data.id} />
+<DataTable columns={columns} data={data} />
 
     </div>
   )

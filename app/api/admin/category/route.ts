@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
 
     // GET ALL CATEGORY
 
-    const getCategory = await prisma.categoty.findMany({});
+    const getCategory = await prisma.categoty.findMany({orderBy : {created : 'desc'}});
     
     return NextResponse.json(getCategory, { status: 200 })
 }
