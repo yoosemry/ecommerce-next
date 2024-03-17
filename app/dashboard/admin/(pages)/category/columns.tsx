@@ -5,6 +5,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import { useRouter } from "next/navigation"
 
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
+import AlertDialogBox from "./_components/AlertDialogBox"
 
 export type CategoryType = {
   id: string
@@ -66,10 +67,11 @@ export const columns: ColumnDef<CategoryType>[] = [
     const categoryInfo = row.original;
     const router = useRouter();
     return (
-      <div className="space-x-4 text-right">
+      <div className="flex space-x-4 justify-end">
 
       <Button variant={"outline"} size={"sm"} onClick={() => router.push(`category/${categoryInfo.id}`)}>Update</Button>
-      <Button variant={"destructive"} size={"sm"} onClick={() => console.log(categoryInfo)}>Delete</Button>
+      
+      <AlertDialogBox  id={categoryInfo.id}/>
       
       </div>
     )}

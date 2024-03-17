@@ -29,16 +29,17 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import { Categoty } from "@prisma/client";
+import { Loader2 } from "lucide-react";
 
-
-const CategoryForm = () => {
+const CategoryForm = ({category} : {category? : Categoty} ) => {
 
     const router = useRouter()
     const quertClient = useQueryClient()
     const form = useForm<z.infer<typeof categorySchema>>({
         resolver: zodResolver(categorySchema),
         defaultValues: {
-            name: "",
+            name: category?.name
         },
     });
 
@@ -46,20 +47,27 @@ const CategoryForm = () => {
 
         try {
 
-            await axios.post(`${API}/admin/category/`, value)
-            toast('Created New Category');
+            if(category){
+                await axios.patch(`${API}/admin/category/${category.id}`, value)
+                toast('Updated Category');
+            }else{
+                await axios.post(`${API}/admin/category/`, value)
+                toast.success('Created New Category');
+            }
+
+
             router.push('/dashboard/admin/category');
             quertClient.invalidateQueries({ queryKey: ['category'] });
         } catch (error) {
-            toast('unknow error please try again')
+            toast.error('unknow error please try again')
         }
     };
 
     return (
         <Card className="max-w-2xl mx-auto my-10">
             <CardHeader>
-                <CardTitle>Register New Category</CardTitle>
-                <CardDescription>Register New Category</CardDescription>
+                <CardTitle>{category ? 'Update New Category' : 'Register New Category' }</CardTitle>
+                <CardDescription>{category ? 'Update New Category' : 'Register New Category' } </CardDescription>
             </CardHeader>
             <CardContent>
 
@@ -81,7 +89,8 @@ const CategoryForm = () => {
                         />
 
 
-                        <Button type="submit" variant={"outline"}  size={"lg"}>{form.formState.isSubmitting ? 'Registered ...' : "Register"}</Button>
+                        <SubmitButtonWithContent loading={form.formState.isSubmitting} isUpdate={!!category}/>
+
                     </form>
                 </Form>
             </CardContent>
@@ -91,15 +100,24 @@ const CategoryForm = () => {
 
 export default CategoryForm;
 
-export const ButtonSide = ( {loading} : {loading :boolean}, {category} : {category :boolean})=>{
+export const SubmitButtonWithContent = ( {loading , isUpdate} : {loading: boolean , isUpdate : boolean})=>{
 
-    
+   if(loading){
     return(
-        <>
-        <h1>h</h1>
-        </>
+        <Button className="space-x-2 gap-1" variant={"outline"} size={"lg"}>
+            {isUpdate ? "Updating " : "Registering "} 
+            Category <Loader2 className="animate-spin h-5 w-5 text-black"/>
 
+        </Button>
     )
+   } 
+   
+   return <Button type="submit" variant={"outline"} size={"lg"}>
+    {isUpdate ? "Update " : "Register "}
+    Category
+   </Button>
+
+  
 }
 
 
