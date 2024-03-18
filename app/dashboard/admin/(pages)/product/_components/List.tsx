@@ -25,11 +25,10 @@ const List = () => {
 
   return (
     <div className=' w-full text-start'>
-       <div className="flex justify-end">
-         <Button className="md:px-7 md:mb-4" onClick={() => router.push('/dashboard/admin/category/new')}>New Category Product</Button>
+ <div className="flex justify-end">
+         <Button className="md:px-7 md:mb-4" onClick={() => router.push('/dashboard/admin/product/new')}>New Product</Button>
 
         </div>
-
 <DataTable columns={columns} data={data} />
 
     </div>

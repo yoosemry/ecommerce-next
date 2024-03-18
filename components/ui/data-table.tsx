@@ -86,10 +86,7 @@ export function DataTable<TData, TValue>({
   return (
 
     <div>
-        <div className="flex justify-end">
-         <Button className="md:px-7 md:mb-4" onClick={() => router.push('/dashboard/admin/category/new')}>New Category</Button>
-
-        </div>
+       
 
             <div className="flex items-center py-4">
         <Input
